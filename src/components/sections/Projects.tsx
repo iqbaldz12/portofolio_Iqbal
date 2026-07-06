@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Building2, Globe, Heart, Smartphone, ArrowRight } from 'lucide-react';
+import { Building2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/projects';
 

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Building2, ArrowLeft } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { useEffect } from 'react';
 
