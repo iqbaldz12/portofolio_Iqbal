@@ -151,7 +151,7 @@ export const Hero = () => {
             {/* The Profile Image overlapping bottom-right */}
             <div className="absolute -bottom-8 -right-4 md:-bottom-12 md:-right-8 w-[240px] h-[320px] md:w-[280px] md:h-[380px] bg-theme-bg shadow-2xl z-10 rounded-xl overflow-hidden border border-theme-purple/20">
               <img
-                src="./profil.jpeg"
+                src="/profil.jpeg"
                 alt="Muhamad Iqbal Dzulkarnaen"
                 className="w-full h-full object-cover object-top"
               />
