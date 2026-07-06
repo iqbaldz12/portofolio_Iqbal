@@ -17,7 +17,7 @@ export const projects = [
     tags: ['Hospital Management', 'Full-stack', 'Laravel', 'Vue.js'],
     icon: <Building2 size={20} />,
     gradient: 'from-cyan-500 to-blue-500',
-    img: '/SIMRS TRANSMEDIC.png',
+    img: `${import.meta.env.BASE_URL}SIMRS TRANSMEDIC.png`,
   },
   {
     title: 'SIMAPRO PT.Someah',
@@ -26,7 +26,7 @@ export const projects = [
     tags: ['Project Management', 'Laravel', 'Web App'],
     icon: <Globe size={20} />,
     gradient: 'from-violet-500 to-purple-600',
-    img: '/simapro.png',
+    img: `${import.meta.env.BASE_URL}simapro.png`,
   },
   {
     title: 'Website Presensi SOMEAH',
@@ -35,7 +35,7 @@ export const projects = [
     tags: ['Attendance', 'Laravel', 'Web App'],
     icon: <Globe size={20} />,
     gradient: 'from-emerald-500 to-teal-500',
-    img: '/four-u.png',
+    img: `${import.meta.env.BASE_URL}four-u.png`,
   },
   {
     title: 'Website Tiket Customer Service',
@@ -53,7 +53,7 @@ export const projects = [
     tags: ['Mobile', 'Education', 'App'],
     icon: <Smartphone size={20} />,
     gradient: 'from-blue-500 to-indigo-500',
-    img: '/four-ufish.png',
+    img: `${import.meta.env.BASE_URL}four-ufish.png`,
   },
   {
     title: 'Website Hello Blood',
@@ -62,6 +62,6 @@ export const projects = [
     tags: ['Health', 'Web App', 'Social Impact'],
     icon: <Heart size={20} />,
     gradient: 'from-red-500 to-pink-500',
-    img: '/helloblood.png',
+    img: `${import.meta.env.BASE_URL}helloblood.png`,
   },
 ];
