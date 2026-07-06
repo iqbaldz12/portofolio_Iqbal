@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-1:       #050B18;
+    --bg-2:       #0A1628;
+    --bg-3:       #0F1E38;
+    --accent:     #6C63FF;
+    --accent-dim: rgba(108,99,255,0.12);
+    --accent-glo: rgba(108,99,255,0.38);
+    --amber:      #F5A623;
+    --amber-dim:  rgba(245,166,35,0.12);
+    --green:      #4ADE80;
+    --text-1:     #E8EAF0;
+    --text-2:     #94A3B8;
+    --text-3:     #4B5563;
+    --border:     rgba(108,99,255,0.22);
+    --border-s:   rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+  
+  body {
+    @apply bg-theme-bg text-theme-mutedLight font-sans;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-theme-bgSecondary/40 backdrop-blur-md border border-theme-border;
+  }
+  
+  .glass-strong {
+    @apply bg-theme-card/60 backdrop-blur-xl border border-theme-cardBorder;
+  }
+
+  .box-glow {
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.15);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+  }
+
+  .section-divider {
+    @apply w-full h-[1px] bg-theme-cardBorder my-16 max-w-5xl mx-auto;
+  }
+
+  /* Interactive elements */
+  .interactive-element {
+    @apply relative overflow-hidden;
+  }
+
+  .interactive-element::after {
+    content: '';
+    @apply absolute inset-0 bg-white/5 opacity-0 transition-opacity duration-300 pointer-events-none;
+  }
+
+  .interactive-element:hover::after {
+    @apply opacity-100;
+  }
+}
+
+/* Animations from the new theme */
+.badge-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-theme-purple;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot { 
+  0%,100% { opacity:1; transform:scale(1) } 
+  50% { opacity:.4; transform:scale(.75) } 
+}
+
+.cursor-blink {
+  display: inline-block; width: 2px; height: 1.1em;
+  background: var(--accent); vertical-align: middle; margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Base custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+::selection { background: var(--accent); color: #fff; }
+
+/* Inline Terminal Animation */
+.tl { opacity: 0; animation: fadeUp .25s forwards; }
+@keyframes fadeUp { to { opacity:1; } }
+.term-cur { display: inline-block; width: 7px; height: 13px; background: var(--accent); vertical-align: middle; animation: blink 1s step-end infinite; }
