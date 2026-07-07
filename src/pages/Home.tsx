@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Hero } from '../components/sections/Hero'
 import { About } from '../components/sections/About'
 import { Experience } from '../components/sections/Experience'
@@ -7,6 +9,19 @@ import { Education } from '../components/sections/Education'
 import { Contact } from '../components/sections/Contact'
 
 export const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      setTimeout(() => {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location]);
+
   return (
     <>
       <Hero />

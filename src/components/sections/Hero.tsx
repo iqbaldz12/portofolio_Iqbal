@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -20,6 +21,22 @@ const SendIcon = () => (
 
 export const Hero = () => {
   const [terminalLines, setTerminalLines] = useState<number>(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: targetId } });
+    } else {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -110,14 +127,16 @@ export const Hero = () => {
           <div className="flex flex-wrap gap-3.5">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-sans text-[0.88rem] font-semibold bg-theme-purple text-white hover:bg-[#5A52E5] hover:-translate-y-0.5 hover:shadow-[0_8px_26px_rgba(108,99,255,0.38)] transition-all duration-200"
+              onClick={(e) => handleNavClick(e, '#projects')}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-sans text-[0.88rem] font-semibold bg-theme-purple text-white hover:bg-[#5A52E5] hover:-translate-y-0.5 hover:shadow-[0_8px_26px_rgba(108,99,255,0.38)] transition-all duration-200 cursor-pointer"
             >
               <GithubIcon />
               View Projects
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-sans text-[0.88rem] font-semibold bg-transparent text-theme-mutedLight border border-white/10 hover:border-theme-purple hover:text-theme-purple hover:-translate-y-0.5 transition-all duration-200"
+              onClick={(e) => handleNavClick(e, '#contact')}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-lg font-sans text-[0.88rem] font-semibold bg-transparent text-theme-mutedLight border border-white/10 hover:border-theme-purple hover:text-theme-purple hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
               <SendIcon />
               Get in Touch

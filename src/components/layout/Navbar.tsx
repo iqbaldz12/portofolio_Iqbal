@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -14,6 +15,23 @@ const navLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: targetId } });
+    } else {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMobileOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,9 +51,10 @@ export const Navbar = () => {
       >
         <motion.a
           href="#home"
+          onClick={(e) => handleNavClick(e, '#home')}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-2xl font-bold tracking-wider"
+          className="text-2xl font-bold tracking-wider cursor-pointer"
         >
           <span className="gradient-text">&lt;</span>
           <span className="text-white">Iqbal</span>
@@ -52,7 +71,8 @@ export const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="relative hover:text-white transition-colors duration-300 group py-1"
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="relative hover:text-white transition-colors duration-300 group py-1 cursor-pointer"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-primary group-hover:w-full transition-all duration-300" />
@@ -68,7 +88,8 @@ export const Navbar = () => {
         >
           <a
             href="#contact"
-            className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-theme-purple/25"
+            onClick={(e) => handleNavClick(e, '#contact')}
+            className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-300 hover:shadow-lg hover:shadow-theme-purple/25 cursor-pointer"
           >
             Hire Me
           </a>
@@ -101,8 +122,8 @@ export const Navbar = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                onClick={() => setIsMobileOpen(false)}
-                className="text-2xl font-semibold text-theme-muted hover:text-white transition-colors"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-2xl font-semibold text-theme-muted hover:text-white transition-colors cursor-pointer"
               >
                 {link.label}
               </motion.a>
@@ -112,8 +133,8 @@ export const Navbar = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              onClick={() => setIsMobileOpen(false)}
-              className="px-8 py-3 bg-gradient-primary text-white rounded-lg font-semibold"
+              onClick={(e) => handleNavClick(e, '#contact')}
+              className="px-8 py-3 bg-gradient-primary text-white rounded-lg font-semibold cursor-pointer"
             >
               Hire Me
             </motion.a>
