@@ -65,7 +65,7 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
       {/* Backgrounds */}
       <div className="absolute inset-0 pointer-events-none bg-hero-grid bg-[length:56px_56px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black_20%,transparent_80%)]" />
       <div className="absolute inset-0 pointer-events-none bg-hero-glow" />
