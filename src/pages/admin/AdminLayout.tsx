@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useContent } from '../../context/ContentContext';
+import { SyncBadge } from '../../components/admin/SyncBadge';
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: <LayoutDashboard size={18} />, end: true },
@@ -107,6 +108,7 @@ export const AdminLayout = () => {
 
       {/* Main content */}
       <main className="flex-1 ml-64 p-8 max-w-5xl">
+        <SyncBadge />
         <Outlet />
       </main>
     </div>
