@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useContent } from '../../context/ContentContext';
 
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -23,6 +24,8 @@ export const Hero = () => {
   const [terminalLines, setTerminalLines] = useState<number>(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const { content } = useContent();
+  const hero = content.hero;
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -49,15 +52,16 @@ export const Hero = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const pj = hero.profileJson;
   const getTerminalLine = (index: number) => {
     switch (index) {
       case 0: return <><span className="text-theme-purple">$</span> <span className="text-theme-amber">cat profile.json</span></>;
       case 1: return <span className="text-theme-text3">{'{'}</span>;
-      case 2: return <><span className="text-theme-muted">  "name":</span> <span className="text-theme-green">"Muhamad Iqbal Dzulkarnaen"</span></>;
-      case 3: return <><span className="text-theme-muted">  "role":</span> <span className="text-theme-green">"Fullstack Web Developer"</span></>;
-      case 4: return <><span className="text-theme-muted">  "location":</span> <span className="text-theme-green">"Bandung, Indonesia 🇮🇩"</span></>;
-      case 5: return <><span className="text-theme-muted">  "stack":</span> <span className="text-theme-green">["Laravel","PHP","MySQL","Git","PostgreSQL"]</span></>;
-      case 6: return <><span className="text-theme-muted">  "available":</span> <span className="text-theme-green">true ✅</span></>;
+      case 2: return <><span className="text-theme-muted">  "name":</span> <span className="text-theme-green">"{pj.name}"</span></>;
+      case 3: return <><span className="text-theme-muted">  "role":</span> <span className="text-theme-green">"{pj.role}"</span></>;
+      case 4: return <><span className="text-theme-muted">  "location":</span> <span className="text-theme-green">"{pj.location}"</span></>;
+      case 5: return <><span className="text-theme-muted">  "stack":</span> <span className="text-theme-green">[{pj.stack.map((s) => `"${s}"`).join(',')}]</span></>;
+      case 6: return <><span className="text-theme-muted">  "available":</span> <span className="text-theme-green">{pj.available ? 'true ✅' : 'false'}</span></>;
       case 7: return <span className="text-theme-text3">{'}'}</span>;
       case 8: return <><span className="text-theme-purple">$</span> <span className="term-cur"></span></>;
       default: return null;
@@ -79,22 +83,18 @@ export const Hero = () => {
           className="flex flex-col relative z-10 lg:pr-10"
         >
           <div className="inline-flex items-center gap-2 bg-theme-purple/10 border border-theme-border text-theme-purple font-mono text-xs px-3.5 py-1.5 rounded-full mb-7 w-fit tracking-wider">
-            <span className="badge-dot" /> Open to opportunities
+            <span className="badge-dot" /> {hero.badge}
           </div>
 
           <h1 className="font-display text-[clamp(2.4rem,6.5vw,4.5rem)] font-bold tracking-tight leading-[1.08] mb-2.5">
-            Muhamad Iqbal<br />
-            <span className="bg-gradient-primary bg-clip-text text-transparent">Dzulkarnaen</span>
+            {hero.name}<br />
+            <span className="bg-gradient-primary bg-clip-text text-transparent">{hero.nameHighlight}</span>
           </h1>
 
           <p className="font-display text-[clamp(1.1rem,2.8vw,1.5rem)] text-theme-muted mb-8 min-h-[2.4rem]">
             <TypeAnimation
-              sequence={[
-                'Laravel Developer', 2000,
-                'Backend Engineer', 2000,
-                'Fullstack Builder', 2000,
-                'API Craftsman', 2000,
-              ]}
+              key={hero.typeSequences.join('|')}
+              sequence={hero.typeSequences.flatMap((s) => [s, 2000])}
               wrapper="span"
               speed={50}
               className="text-theme-amber font-semibold"

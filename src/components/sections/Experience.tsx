@@ -1,37 +1,11 @@
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
-
-const experiences = [
-  {
-    company: 'PT. Jasamedika Saranatama',
-    role: 'Fullstack Developer',
-    period: 'Desember 2025 - Juni 2026',
-    description:
-      'Berperan dalam pengembangan dan pemeliharaan sistem informasi kesehatan, berfokus pada integrasi frontend dan backend untuk proyek Klinik Jasamedika dan SIMRS (Sistem Informasi Manajemen Rumah Sakit) Jasamedika Saranatama.',
-    tags: ['Laravel', 'Vue.js', 'MySQL', 'REST API'],
-    color: 'from-purple-500 to-pink-500',
-  },
-  {
-    company: 'CV NIKENSHA NIAGA NUSANTARA',
-    role: 'Backend Developer',
-    period: 'Oktober 2024 - Maret 2025',
-    description:
-      'Mengembangkan sistem berbasis Laravel dengan API, database, dan optimasi performa.',
-    tags: ['Laravel', 'PHP', 'MySQL', 'API'],
-    color: 'from-cyan-500 to-purple-500',
-  },
-  {
-    company: 'PT Someah Kreatif Nusantara',
-    role: 'Fullstack Web Developer',
-    period: 'Januari 2024 - April 2024',
-    description:
-      'Membuat dan mengembangkan website menggunakan framework Laravel.',
-    tags: ['Laravel', 'PHP', 'JavaScript', 'Bootstrap'],
-    color: 'from-pink-500 to-orange-500',
-  },
-];
+import { useContent } from '../../context/ContentContext';
 
 export const Experience = () => {
+  const { content } = useContent();
+  const experiences = content.experiences;
+
   return (
     <section id="experience" className="py-24 bg-theme-bg relative z-10">
       {/* Ambient glow */}
@@ -59,7 +33,7 @@ export const Experience = () => {
 
           {experiences.map((exp, idx) => (
             <motion.div
-              key={idx}
+              key={exp.id}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

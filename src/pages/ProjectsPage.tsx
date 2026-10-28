@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import { Building2, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { projects } from '../data/projects';
+import { useContent } from '../context/ContentContext';
+import { renderIcon } from '../data/icons';
 import { useEffect } from 'react';
 
 export const ProjectsPage = () => {
   const navigate = useNavigate();
+  const { content } = useContent();
+  const projects = content.projects;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,7 +42,7 @@ export const ProjectsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {projects.map((project, idx) => (
             <motion.div
-              key={idx}
+              key={project.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
@@ -56,7 +59,7 @@ export const ProjectsPage = () => {
 
                 {/* Floating icon */}
                 <div className={`absolute top-4 right-4 p-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white shadow-lg`}>
-                  {project.icon}
+                  {renderIcon(project.icon, 20)}
                 </div>
               </div>
 

@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { Building2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { projects } from '../../data/projects';
+import { useContent } from '../../context/ContentContext';
+import { renderIcon } from '../../data/icons';
 
 export const Projects = () => {
-  const displayedProjects = projects.slice(0, 6);
+  const { content } = useContent();
+  const displayedProjects = content.projects.slice(0, 6);
 
   return (
     <section id="projects" className="py-24 bg-theme-bg relative z-10">
@@ -33,7 +35,7 @@ export const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {displayedProjects.map((project, idx) => (
             <motion.div
-              key={idx}
+              key={project.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -51,7 +53,7 @@ export const Projects = () => {
 
                 {/* Floating icon */}
                 <div className={`absolute top-4 right-4 p-2.5 rounded-xl bg-gradient-to-r ${project.gradient} text-white shadow-lg`}>
-                  {project.icon}
+                  {renderIcon(project.icon, 20)}
                 </div>
               </div>
 

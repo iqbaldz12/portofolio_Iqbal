@@ -1,28 +1,12 @@
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar, MapPin } from 'lucide-react';
-
-const educationData = [
-  {
-    school: 'STMIK "AMIKBANDUNG"',
-    degree: 'S1 Teknik Informatika',
-    period: '2021 - 2025',
-    location: 'Bandung',
-    description: 'Mendalami ilmu komputer, pemrograman, dan pengembangan perangkat lunak.',
-    icon: <GraduationCap size={24} />,
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    school: 'SMKN 7 Baleendah',
-    degree: 'Sekolah Menengah Kejuruan',
-    period: '2018 - 2021',
-    location: 'Baleendah, Bandung',
-    description: 'Membangun fondasi awal dalam dunia teknologi informasi dan pemrograman.',
-    icon: <GraduationCap size={24} />,
-    gradient: 'from-cyan-500 to-blue-500',
-  },
-];
+import { Calendar, MapPin } from 'lucide-react';
+import { useContent } from '../../context/ContentContext';
+import { renderIcon } from '../../data/icons';
 
 export const Education = () => {
+  const { content } = useContent();
+  const educationData = content.education;
+
   return (
     <section id="education" className="py-24 bg-theme-bg relative z-10">
       {/* Ambient glow */}
@@ -47,7 +31,7 @@ export const Education = () => {
         <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {educationData.map((edu, idx) => (
             <motion.div
-              key={idx}
+              key={edu.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -58,7 +42,7 @@ export const Education = () => {
               <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${edu.gradient}`} />
 
               <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${edu.gradient} text-white mb-5`}>
-                {edu.icon}
+                {renderIcon(edu.icon, 24)}
               </div>
 
               <h3 className="text-lg font-bold text-white mb-1 group-hover:gradient-text transition-all">

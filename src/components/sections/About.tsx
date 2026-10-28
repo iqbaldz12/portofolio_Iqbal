@@ -1,16 +1,12 @@
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Mail, Phone, User, GraduationCap } from 'lucide-react';
-
-const personalInfo = [
-  { icon: <MapPin size={18} />, label: 'Location', value: 'Bandung, Indonesia' },
-  { icon: <Calendar size={18} />, label: 'Birth Date', value: '05 Oktober 2003' },
-  { icon: <Mail size={18} />, label: 'Email', value: 'iqbaldzulkarnaen12@gmail.com' },
-  { icon: <Phone size={18} />, label: 'Phone', value: '0851-5695-4817' },
-  { icon: <User size={18} />, label: 'Status', value: 'Belum Menikah' },
-  { icon: <GraduationCap size={18} />, label: 'Education', value: 'S1 Teknik Informatika' },
-];
+import { User } from 'lucide-react';
+import { useContent } from '../../context/ContentContext';
+import { renderIcon } from '../../data/icons';
 
 export const About = () => {
+  const { content } = useContent();
+  const about = content.about;
+
   return (
     <section id="about" className="py-24 bg-theme-bg relative z-10">
       {/* Ambient glow */}
@@ -23,9 +19,9 @@ export const About = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-theme-purple text-sm font-mono tracking-widest uppercase">Get to know me</span>
+          <span className="text-theme-purple text-sm font-mono tracking-widest uppercase">{about.sectionTag}</span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-2">
-            About <span className="gradient-text">Me</span>
+            {about.heading} <span className="gradient-text">Me</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full mt-4" />
         </motion.div>
@@ -46,17 +42,14 @@ export const About = () => {
                 </span>
                 Tentang Saya
               </h3>
-              <p className="text-theme-muted leading-relaxed text-sm md:text-base">
-                Saya seorang mahasiswa yang berambisi untuk meningkatkan keterampilan
-                dan memperoleh pengalaman di dunia kerja. Saat ini, saya sedang
-                membangun dasar sebagai seorang web developer, dengan passion yang
-                besar dalam dunia pemrograman.
-              </p>
-              <p className="text-theme-muted leading-relaxed text-sm md:text-base mt-4">
-                Saya sangat antusias untuk terus belajar, berkembang, dan memberikan
-                kontribusi yang berarti. Berpengalaman di pengembangan Full-Stack
-                dengan fokus pada Laravel, Vue.js, dan sistem informasi manajemen.
-              </p>
+              {about.paragraphs.map((p, idx) => (
+                <p
+                  key={idx}
+                  className={`text-theme-muted leading-relaxed text-sm md:text-base ${idx > 0 ? 'mt-4' : ''}`}
+                >
+                  {p}
+                </p>
+              ))}
             </div>
 
             {/* Code snippet decoration */}
@@ -78,11 +71,11 @@ export const About = () => {
                   <span className="text-theme-purple">const</span>{' '}
                   <span className="text-theme-cyan">developer</span> = {'{\n'}
                   {'  '}<span className="text-theme-pink">name</span>:{' '}
-                  <span className="text-green-400">"Muhamad Iqbal"</span>,{'\n'}
+                  <span className="text-green-400">"{content.hero.profileJson.name}"</span>,{'\n'}
                   {'  '}<span className="text-theme-pink">role</span>:{' '}
-                  <span className="text-green-400">"Full-Stack Developer"</span>,{'\n'}
+                  <span className="text-green-400">"{content.hero.profileJson.role}"</span>,{'\n'}
                   {'  '}<span className="text-theme-pink">location</span>:{' '}
-                  <span className="text-green-400">"Bandung, ID"</span>,{'\n'}
+                  <span className="text-green-400">"{content.hero.profileJson.location}"</span>,{'\n'}
                   {'  '}<span className="text-theme-pink">passion</span>:{' '}
                   <span className="text-green-400">"Building great software"</span>,{'\n'}
                   {'}'};
@@ -99,9 +92,9 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            {personalInfo.map((info, idx) => (
+            {about.personalInfo.map((info, idx) => (
               <motion.div
-                key={idx}
+                key={info.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -110,7 +103,7 @@ export const About = () => {
               >
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-lg bg-theme-purple/10 text-theme-purple group-hover:bg-theme-purple/20 transition-colors">
-                    {info.icon}
+                    {renderIcon(info.icon, 18)}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-theme-muted mb-1">{info.label}</p>
